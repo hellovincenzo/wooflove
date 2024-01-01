@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import { CategoryCard } from "../../molecules";
 
@@ -16,23 +16,23 @@ const Categories: React.FC<CategoriesProps> = ({
   handleDogCardClick,
 }) => {
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollView}
+    <FlatList
+      data={categories}
       horizontal
       showsHorizontalScrollIndicator={false}
-    >
-      {categories.map(({ name, imageUrl }) => {
-        const title = name[0].toUpperCase() + name.slice(1);
+      contentContainerStyle={styles.scrollView}
+      keyExtractor={(item) => item.name}
+      renderItem={({ item }) => {
+        const title = item.name[0].toUpperCase() + item.name.slice(1);
         return (
           <CategoryCard
-            key={name}
             name={title}
-            imageUrl={imageUrl}
-            onDogCardClick={() => handleDogCardClick(title, imageUrl)}
+            imageUrl={item.imageUrl}
+            onDogCardClick={() => handleDogCardClick(title, item.imageUrl)}
           />
         );
-      })}
-    </ScrollView>
+      }}
+    />
   );
 };
 

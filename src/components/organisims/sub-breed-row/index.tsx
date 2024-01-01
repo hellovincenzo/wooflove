@@ -1,6 +1,6 @@
 import React from "react";
-import { Text, ScrollView, View, StyleSheet } from "react-native";
-import Icon from "@expo/vector-icons//MaterialCommunityIcons";
+import { Text, View, StyleSheet, FlatList } from "react-native";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 import { DogCard } from "../../molecules";
 
@@ -23,31 +23,27 @@ const SubBreedRow: React.FC<SubBreedRowProps> = ({
 }) => {
   return (
     <View>
-      <View className="mt-4 flex-row items-center justify-between px-4">
-        <Text className="font-bold text-lg">{title}</Text>
+      <View className={"mt-4 flex-row items-center justify-between px-4"}>
+        <Text className={"font-bold text-lg"}>{title}</Text>
         <Icon name="arrow-right" size={20} color={"#00CCB5"} />
       </View>
-      <Text className="text-xs text-gray-500 px-4">{description}</Text>
-      <ScrollView
-        style={styles.scrollView}
-        className="pt-4"
+      <Text className={"text-xs text-gray-500 px-4"}>{description}</Text>
+
+      <FlatList
+        data={dogs}
         horizontal
         showsHorizontalScrollIndicator={false}
-      >
-        {dogs.map((subBreed) => {
-          return (
-            <DogCard
-              key={subBreed.name}
-              imageUrl={subBreed.imageUrl}
-              name={subBreed.name}
-              short_description={subBreed.short_description}
-              onDogCardClick={() =>
-                handleDogCardClick(subBreed.name, subBreed.imageUrl)
-              }
-            />
-          );
-        })}
-      </ScrollView>
+        keyExtractor={(item) => item.name}
+        renderItem={({ item }) => (
+          <DogCard
+            imageUrl={item.imageUrl}
+            name={item.name}
+            short_description={item.short_description}
+            onDogCardClick={() => handleDogCardClick(item.name, item.imageUrl)}
+          />
+        )}
+        contentContainerStyle={styles.scrollView}
+      />
     </View>
   );
 };

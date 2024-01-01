@@ -138,7 +138,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       onCardClick={(name, imageUrl, subBreed) =>
         navigation.navigate("Dog", { name, imageUrl, subBreed })
       }
-      onBasketPress={() => navigation.navigate("Basket")}
     />
   );
 };

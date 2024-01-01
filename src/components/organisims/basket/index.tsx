@@ -1,6 +1,8 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
+import { useHaptic } from "../../../hooks/use-haptic";
+
 interface BasketProps {
   basket: {
     price: string;
@@ -12,12 +14,20 @@ interface BasketProps {
 }
 
 const Basket: React.FC<BasketProps> = ({ basket, onBasketPress }) => {
+  const impactHapticLight = useHaptic("impactLight");
+
+  const handleOnBasketPress = () => {
+    impactHapticLight();
+    onBasketPress();
+  };
+
   if (!basket.dogs.length) return null;
+
   return (
     <View className="absolute bottom-10 w-full z-50">
       <TouchableOpacity
         className="bg-[#00CCBB] mx-5 p-4 rounded-lg flex-row items-center space-x-1"
-        onPress={onBasketPress}
+        onPress={handleOnBasketPress}
       >
         <Text className="text-white font-extrabold text-lg bg-[#01A296] py-1 px-2">
           {String(basket.totalCount)}

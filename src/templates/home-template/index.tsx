@@ -32,7 +32,6 @@ export interface HomeTemplateProps {
   appName: string;
   onCardClick: (name: string, imageUrl: string, breeds: Breed[]) => void;
   onSearch: (text: string) => void;
-  onBasketPress: () => void;
 }
 
 const HomeTemplate: React.FC<HomeTemplateProps> = ({
@@ -50,7 +49,7 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({
         <Image
           className="h-7 w-7 bg-gray-300 p-4 rounded-full"
           source={{
-            uri: "https://dog.ceo/img/dog-api-logo.sv",
+            uri: "https://dog.ceo/img/dog-api-logo.svg",
           }}
         />
         <View className="flex-1">
